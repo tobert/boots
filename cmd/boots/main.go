@@ -16,6 +16,7 @@ import (
 	"github.com/tinkerbell/boots/packet"
 	"github.com/tinkerbell/boots/syslog"
 	"github.com/tinkerbell/boots/tftp"
+	"github.com/tobert/otel-launcher-go/launcher"
 
 	_ "github.com/tinkerbell/boots/installers/coreos"
 	_ "github.com/tinkerbell/boots/installers/custom_ipxe"
@@ -46,6 +47,12 @@ func main() {
 		panic(nil)
 	}
 	defer l.Close()
+
+	otel := launcher.ConfigureOpentelemetry(
+		launcher.WithServiceName("github.com/tinkerbell/boots"),
+	)
+	defer otel.Shutdown()
+
 	mainlog = l.Package("main")
 	metrics.Init(l)
 	dhcp.Init(l)
