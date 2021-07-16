@@ -45,3 +45,9 @@ Build/Run Boots
 You can use NixOS shell, which will have the Git-LFS, Go and others
 
 `nix-shell`
+
+### Configuring OpenTelemetry
+
+Boots can emit OpenTelemetry events and participates in otel tracing over
+gRPC. OpenTelemetry is configured via environment variables. Check out
+[tink's README](https://github.com/tinkerbell/tink) for more details.
